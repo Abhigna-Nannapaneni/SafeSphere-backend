@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/volunteer")
-@CrossOrigin(origins = "http://localhost:3000") // ✅ allows React frontend to connect
+@CrossOrigin(origins = "*") // ✅ allows React frontend to connect
 public class VolunteerController {
 
     @Autowired
@@ -29,4 +29,8 @@ public class VolunteerController {
     public Volunteer login(@RequestBody Volunteer volunteer) {
         return service.login(volunteer.getEmail(), volunteer.getPassword());
     }
+    @GetMapping("/test")
+public String test() {
+    return "BACKEND IS WORKING! Time: " + System.currentTimeMillis();
+}
 }
