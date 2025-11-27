@@ -1,9 +1,12 @@
-@SpringBootApplication
-public class B10Application {
+package b10.com.example.b10.Config;
 
-    public static void main(String[] args) {
-        SpringApplication.run(B10Application.class, args);
-    }
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class CorsConfig {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -17,35 +20,5 @@ public class B10Application {
                         .allowCredentials(true);
             }
         };
-    }
-
-    // ADD THIS FILTER TO HANDLE OPTIONS REQUESTS
-    @Bean
-    public FilterRegistrationBean<CorsFilter> corsFilter() {
-        FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new CorsFilter());
-        registrationBean.addUrlPatterns("/*");
-        return registrationBean;
-    }
-
-    public static class CorsFilter implements Filter {
-        @Override
-        public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-                throws IOException, ServletException {
-            HttpServletResponse httpResponse = (HttpServletResponse) response;
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
-
-            httpResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:30082");
-            httpResponse.setHeader("Access-Control-Allow-Methods", "*");
-            httpResponse.setHeader("Access-Control-Allow-Headers", "*");
-            httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
-
-            if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
-                httpResponse.setStatus(HttpServletResponse.SC_OK);
-                return;
-            }
-
-            chain.doFilter(request, response);
-        }
     }
 }
