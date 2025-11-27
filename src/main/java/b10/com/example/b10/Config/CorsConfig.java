@@ -1,4 +1,3 @@
-
 package b10.com.example.b10.Config;
 
 import org.springframework.context.annotation.Bean;
@@ -15,9 +14,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedOrigins("http://localhost:30082")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // ← ADD OPTIONS
+                        .allowedHeaders("*")
+                        .allowCredentials(true); // ← ADD THIS TOO
             }
         };
     }
